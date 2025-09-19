@@ -28,7 +28,7 @@ public class Ejercicio1 {
         try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(fichero))) {
             while (true) {
                 try {
-                    if (dataInputStream.available() > 0) System.out.println("quedan: " +dataInputStream.available() + " bytes");
+                    if (dataInputStream.available() > 0) System.out.println("quedan: " + dataInputStream.available() + " bytes");
                     String fic = dataInputStream.readUTF();
                     System.out.println("cadea: " + fic);
                     cadenas.add(fic);
