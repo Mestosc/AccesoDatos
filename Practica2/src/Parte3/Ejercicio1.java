@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public class Ejercicio1 {
     public static void main(String[] args) {
         escribirUTF("prob.txt","o tempo está xélido");
-        for (String i : leerUTF("prob.txt")) {
-            System.out.println(i);
-        }
+        ArrayList<String> l = leerUTF("prob.txt");
     }
     public static void escribirUTF(String fichero,String cadena) {
         try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(fichero))) {
+            System.out.println("Escribiendo la cadena: " + cadena);
+            System.out.println("Tamaño do ficheiro: " + dataOutputStream.size() + " bytes");
             dataOutputStream.writeUTF(cadena);
+            System.out.println("Tamaño do ficheiro: " + dataOutputStream.size() + " bytes");
+            System.out.println("Tamaño total do ficheiro: " + dataOutputStream.size() + " bytes");
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado? " + e);
         } catch (IOException e) {
@@ -24,9 +26,12 @@ public class Ejercicio1 {
         try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(fichero))) {
             while (true)
                 try {
-                    cadenas.add(dataInputStream.readUTF());
+                    System.out.println("quedan: " +dataInputStream.available() + " bytes");
+                    String fic = dataInputStream.readUTF();
+                    System.out.println("cadea: " + fic);
+                    cadenas.add(fic);
                 } catch (EOFException e) {
-                    System.out.println("Final alcanzado");
+                    System.out.println("Xa non queda nada por leer");
                     break;
                 } catch (IOException e) {
                     System.out.println("Fallo de  I/O " + e);
