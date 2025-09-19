@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Ejercicio1 {
     public static void main(String[] args) {
         escribirUTF("prob.txt","o tempo está xélido");
-        ArrayList<String> l = leerUTF("prob.txt");
+        leerUTF("prob.txt");
     }
     public static void escribirUTF(String fichero,String cadena) {
         try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(fichero))) {
