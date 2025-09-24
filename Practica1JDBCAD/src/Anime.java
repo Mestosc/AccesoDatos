@@ -8,6 +8,7 @@ public class Anime {
     String descripcion;
     int puntuacion;
     String fecha;
+
     public Anime(String nombre, String descripcion, int puntuacion, String fecha) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -49,6 +50,19 @@ public class Anime {
         return null;
     }
     public static void insertNuevoAnime(String nombre,String descripcion, int puntuacion, String fecha) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
+            statement.setString(1, nombre);
+            statement.setString(2, descripcion);
+            statement.setInt(3, puntuacion);
+            statement.setString(4,fecha);
+            statement.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public void insertNuevoAnime() {
         try (Connection conn = DBConnection.connect();
              PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
             statement.setString(1, nombre);
