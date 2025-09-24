@@ -4,6 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Anime {
+    String nombre;
+    String descripcion;
+    int puntuacion;
+    String fecha;
+    public Anime(String nombre, String descripcion, int puntuacion, String fecha) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.puntuacion = puntuacion;
+        this.fecha = fecha;
+    }
     public static void actualizarResultados(String datoActualizar,String nuevoValor,String nombre) {
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("update anime set "+ datoActualizar+"="+nuevoValor+ " where nome = ?")) {
@@ -22,20 +32,21 @@ public class Anime {
             System.out.println("Error eliminando anime: " + e);
         }
     }
-    public static void mostrarAnime(String nombre) {
+    public static Anime obtenerAnime(String nombre) {
         try (Connection conn = DBConnection.connect();
             PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
             stm.setString(1, nombre);
             ResultSet set = stm.executeQuery();
             if (set.next()) {
-                System.out.println("Nombre: " + set.getString("nome"));
-                System.out.println("Descripcion: " + set.getString("descripcion"));
-                System.out.println("Fecha: " + set.getString("data"));
-                System.out.println("Puntuacion: " + set.getInt("puntuacion"));
+                return new Anime(set.getString("nome"),
+                        set.getString("descripcion"),
+                        set.getInt("puntuacion"),
+                        set.getString("data"));
             }
         } catch (SQLException e) {
             System.out.println("Error mostrando anime: " + e);
         }
+        return null;
     }
     public static void insertNuevoAnime(String nombre,String descripcion, int puntuacion, String fecha) {
         try (Connection conn = DBConnection.connect();
