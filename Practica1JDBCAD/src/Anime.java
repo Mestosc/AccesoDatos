@@ -1,19 +1,30 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Anime {
+    public static void actualizarResultados(String datoActualizar,String nuevoValor,String nombre) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("update anime set "+" where nome = ?")) {
+            stm.setString(1, "Evangelion");
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error actualizando resultados: " + e);
+        }
+    }
     public static void mostrarAnime(String nombre) {
         try (Connection conn = DBConnection.connect();
             PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
             stm.setString(1, nombre);
-            var rs = stm.executeQuery();
-            while (rs.next()) {
-                System.out.println("Nombre: " + rs.getString("nome"));
-                System.out.println("Descripcion: " + rs.getString("descripcion"));
-                System.out.println("Fecha: " + rs.getString("data"));
-                System.out.println("Puntuacion: " + rs.getInt("puntuacion"));
+            ResultSet set = stm.executeQuery();
+            if (set.next()) {
+                System.out.println("Nombre: " + set.getString("nome"));
+                System.out.println("Descripcion: " + set.getString("descripcion"));
+                System.out.println("Fecha: " + set.getString("data"));
+                System.out.println("Puntuacion: " + set.getInt("puntuacion"));
             }
+
 
         } catch (SQLException e) {
             System.out.println("Error mostrando anime: " + e);
