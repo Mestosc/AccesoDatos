@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class Anime {
     public static void actualizarResultados(String datoActualizar,String nuevoValor,String nombre) {
         try (Connection conn = DBConnection.connect();
-             PreparedStatement stm = conn.prepareStatement("update anime set "+" where nome = ?")) {
+             PreparedStatement stm = conn.prepareStatement("update anime set "+ datoActualizar+"="+nuevoValor+ " where nome = ?")) {
             stm.setString(1, "Evangelion");
             stm.executeUpdate();
         } catch (SQLException e) {
