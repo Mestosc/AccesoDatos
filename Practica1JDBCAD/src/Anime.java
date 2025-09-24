@@ -7,10 +7,19 @@ public class Anime {
     public static void actualizarResultados(String datoActualizar,String nuevoValor,String nombre) {
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("update anime set "+ datoActualizar+"="+nuevoValor+ " where nome = ?")) {
-            stm.setString(1, "Evangelion");
+            stm.setString(1, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error actualizando resultados: " + e);
+        }
+    }
+    public static void eliminarAnime(String nombre) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("delete from anime where nome = ?")) {
+            stm.setString(1, nombre);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error eliminando anime: " + e);
         }
     }
     public static void mostrarAnime(String nombre) {
@@ -24,8 +33,6 @@ public class Anime {
                 System.out.println("Fecha: " + set.getString("data"));
                 System.out.println("Puntuacion: " + set.getInt("puntuacion"));
             }
-
-
         } catch (SQLException e) {
             System.out.println("Error mostrando anime: " + e);
         }
