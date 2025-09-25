@@ -65,7 +65,7 @@ public class Anime {
             statement.setString(1, nombre);
             statement.setString(2, descripcion);
             statement.setInt(3, puntuacion);
-            statement.setString(4,fecha);
+            statement.setDate(4,fecha);
             statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
