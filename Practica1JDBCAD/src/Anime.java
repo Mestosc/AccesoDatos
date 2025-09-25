@@ -1,15 +1,12 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Anime {
     String nombre;
     String descripcion;
     int puntuacion;
-    String fecha;
+    Date fecha;
 
-    public Anime(String nombre, String descripcion, int puntuacion, String fecha) {
+    public Anime(String nombre, String descripcion, int puntuacion, Date fecha) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
@@ -42,7 +39,7 @@ public class Anime {
                 return new Anime(set.getString("nome"),
                         set.getString("descripcion"),
                         set.getInt("puntuacion"),
-                        set.getString("data"));
+                        set.getDate("data"));
             }
         } catch (SQLException e) {
             System.out.println("Error mostrando anime: " + e);
@@ -73,6 +70,5 @@ public class Anime {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }
