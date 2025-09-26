@@ -47,7 +47,7 @@ public class Anime {
         }
         return null;
     }
-    public static ArrayList<Anime> obtenerAnimesNombre(String nombre) {
+    public static ArrayList<Anime> obtenerAnimesNombre(String nombre) { // En este caso lo pongo porque en la base de datos aparece asi normalmente deberia haber un elemento diferenciador
         ArrayList<Anime> animes = new ArrayList<>();
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
