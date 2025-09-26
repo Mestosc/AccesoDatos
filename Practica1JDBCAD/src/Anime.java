@@ -53,7 +53,7 @@ public class Anime {
              PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
             stm.setString(1, nombre);
             ResultSet set = stm.executeQuery();
-            while (!set.next()) {
+            while (set.next()) {
                 animes.add(new Anime(set.getString("nome"),
                         set.getString("descripcion"),
                         set.getInt("puntuacion"),
