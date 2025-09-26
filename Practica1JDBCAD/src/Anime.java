@@ -34,7 +34,7 @@ public class Anime {
     }
     public static void actualizarPuntuacionDondeNombre(int puntuacion, String nombre) {
         try (Connection conn = DBConnection.connect();
-             PreparedStatement stm = conn.prepareStatement("update anime set nome="+puntuacion+" where nome = ?")) {
+             PreparedStatement stm = conn.prepareStatement("update anime set puntuacion="+puntuacion+" where nome = ?")) {
             stm.setString(1, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
