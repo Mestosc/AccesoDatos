@@ -8,6 +8,7 @@ public class Anime {
     String descripcion;
     int puntuacion;
     Date fecha;
+
     public String obtenerFecha() {
         return fecha.toString();
     }
