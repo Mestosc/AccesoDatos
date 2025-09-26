@@ -7,6 +7,18 @@ public class Anime {
     int puntuacion;
     Date fecha;
 
+    public void setNombre(String nombre) {
+        String anteriorNombre = this.nombre;
+        this.nombre = nombre;
+        actualizarNombreDondeNombre(nombre,anteriorNombre);
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        int anteriorPuntuacion = this.puntuacion;
+        this.puntuacion = puntuacion;
+        actualizarPuntuacionDondeNombre(puntuacion,nombre);
+    }
+
     public String obtenerFecha() {
         return fecha.toString();
     }
@@ -152,13 +164,16 @@ public class Anime {
         }
         return null;
     }
+    public void insertNuevoAnime() {
+        insertNuevoAnime(nombre,descripcion,puntuacion,fecha.toString());
+    }
     public static void insertNuevoAnime(String nombre,String descripcion, int puntuacion, String fecha) {
         try (Connection conn = DBConnection.connect();
              PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
             statement.setString(1, nombre);
             statement.setString(2, descripcion);
             statement.setInt(3, puntuacion);
-            statement.setString(4,fecha);
+            statement.setDate(4,Date.valueOf(fecha));
             statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
