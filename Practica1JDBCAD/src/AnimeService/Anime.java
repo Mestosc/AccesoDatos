@@ -1,5 +1,5 @@
 package AnimeService;
-import Connection.DBConnection;
+import Connector.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
