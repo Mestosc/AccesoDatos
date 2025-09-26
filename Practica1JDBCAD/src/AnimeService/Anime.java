@@ -162,7 +162,7 @@ public class Anime {
         eliminarAnime(this.nombre);
     }
     public void insertNuevoAnime() {
-        insertNuevoAnime(nombre,descripcion,puntuacion,fecha.toString());
+        insertNuevoAnime(nombre,descripcion,puntuacion,fecha);
     }
     public static void insertNuevoAnime(String nombre,String descripcion, int puntuacion, String fecha) {
         try (Connection conn = DBConnection.connect();
@@ -170,6 +170,19 @@ public class Anime {
             statement.setString(1, nombre);
             statement.setString(2, descripcion);
             statement.setDate(3,Date.valueOf(fecha));
+            statement.setInt(4, puntuacion);
+            statement.execute();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+    public static void insertNuevoAnime(String nombre,String descripcion, int puntuacion, Date fecha) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
+            statement.setString(1, nombre);
+            statement.setString(2, descripcion);
+            statement.setDate(3,fecha);
             statement.setInt(4, puntuacion);
             statement.execute();
         } catch (SQLException e) {
@@ -191,7 +204,6 @@ public class Anime {
     public int getPuntuacion() {
         return puntuacion;
     }
-
 
     public void setFechaDate(Date fecha) {
         this.fecha = fecha;
