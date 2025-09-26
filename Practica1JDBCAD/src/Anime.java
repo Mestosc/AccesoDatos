@@ -25,8 +25,9 @@ public class Anime {
     }
     public static void actualizarNombreDondeNombre(String nuevoNombre, String nombre) {
         try (Connection conn = DBConnection.connect();
-             PreparedStatement stm = conn.prepareStatement("update anime set nome='"+nuevoNombre+"' where nome = ?")) {
-            stm.setString(1, nombre);
+             PreparedStatement stm = conn.prepareStatement("update anime set nome= ? where nome = ?")) {
+            stm.setString(1,nuevoNombre);
+            stm.setString(2, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error actualizando resultados: " + e);
@@ -34,8 +35,9 @@ public class Anime {
     }
     public static void actualizarPuntuacionDondeNombre(int puntuacion, String nombre) {
         try (Connection conn = DBConnection.connect();
-             PreparedStatement stm = conn.prepareStatement("update anime set puntuacion="+puntuacion+" where nome = ?")) {
-            stm.setString(1, nombre);
+             PreparedStatement stm = conn.prepareStatement("update anime set puntuacion= ? where nome = ?")) {
+            stm.setInt(1,puntuacion);
+            stm.setString(2, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error actualizando resultados: " + e);
