@@ -23,9 +23,18 @@ public class Anime {
         this.puntuacion = puntuacion;
         this.fecha = Date.valueOf(fecha);
     }
-    public static void actualizarResultados(String datoActualizar,String nuevoValor,String nombre) {
+    public static void actualizarPuntuacionDondeNombre(String nuevoNombre, String nombre) {
         try (Connection conn = DBConnection.connect();
-             PreparedStatement stm = conn.prepareStatement("update anime set "+ datoActualizar+"="+nuevoValor+ " where nome = ?")) {
+             PreparedStatement stm = conn.prepareStatement("update anime set nome='"+nuevoNombre+"' where nome = ?")) {
+            stm.setString(1, nombre);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error actualizando resultados: " + e);
+        }
+    }
+    public static void actualizarPuntuacionDondeNombre(int puntuacion, String nombre) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("update anime set nome="+puntuacion+" where nome = ?")) {
             stm.setString(1, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
