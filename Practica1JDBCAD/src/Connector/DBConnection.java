@@ -8,7 +8,6 @@ public class DBConnection {
     public static Connection connect() {
         Connection conn = null;
         try {
-
             String url = "jdbc:postgresql://10.0.9.100/probas";
             conn = DriverManager.getConnection(url, "postgres","admin");
         } catch (SQLException e) {
