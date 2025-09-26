@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Anime {
     String nombre;
@@ -46,6 +47,24 @@ public class Anime {
         }
         return null;
     }
+    public static ArrayList<Anime> obtenerAnimes(String nombre) {
+        ArrayList<Anime> animes = new ArrayList<>();
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
+            stm.setString(1, nombre);
+            ResultSet set = stm.executeQuery();
+            while (!set.next()) {
+                animes.add(new Anime(set.getString("nome"),
+                        set.getString("descripcion"),
+                        set.getInt("puntuacion"),
+                        set.getDate("data")));
+            }
+            return animes;
+        } catch (SQLException e) {
+            System.out.println("Error mostrando anime: " + e);
+        }
+        return null;
+    }
     public static void insertNuevoAnime(String nombre,String descripcion, int puntuacion, String fecha) {
         try (Connection conn = DBConnection.connect();
              PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
@@ -58,17 +77,5 @@ public class Anime {
             System.out.println(e.getMessage());
         }
 
-    }
-    public void insertNuevoAnime() {
-        try (Connection conn = DBConnection.connect();
-             PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
-            statement.setString(1, nombre);
-            statement.setString(2, descripcion);
-            statement.setInt(3, puntuacion);
-            statement.setDate(4,fecha);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }
