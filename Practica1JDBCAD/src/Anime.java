@@ -23,7 +23,7 @@ public class Anime {
         this.puntuacion = puntuacion;
         this.fecha = Date.valueOf(fecha);
     }
-    public static void actualizarPuntuacionDondeNombre(String nuevoNombre, String nombre) {
+    public static void actualizarNombreDondeNombre(String nuevoNombre, String nombre) {
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("update anime set nome='"+nuevoNombre+"' where nome = ?")) {
             stm.setString(1, nombre);
