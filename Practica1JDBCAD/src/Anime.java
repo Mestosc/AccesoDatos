@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Anime {
@@ -7,11 +9,37 @@ public class Anime {
     int puntuacion;
     Date fecha;
 
-    public Anime(String nombre, String descripcion, int puntuacion, Date fecha) {
+    public String getFecha() {
+        return dateToString(fecha);
+    }
+    public Date getFechaDate() {
+        return fecha;
+    }
+
+    public static Date stringToDate(String dateString) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return new Date(format.parse(dateString).getTime());
+        } catch (ParseException e) {
+            System.out.println("Peto " +e );
+            return null;
+        }
+    }
+    public static String dateToString(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
+    private Anime(String nombre, String descripcion, int puntuacion, Date fecha) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
         this.fecha = fecha;
+    }
+    public Anime(String nombre, String descripcion, int puntuacion, String fecha) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.puntuacion = puntuacion;
+        this.fecha = stringToDate(fecha);
     }
     public static void actualizarResultados(String datoActualizar,String nuevoValor,String nombre) {
         try (Connection conn = DBConnection.connect();
@@ -40,7 +68,7 @@ public class Anime {
                 return new Anime(set.getString("nome"),
                         set.getString("descripcion"),
                         set.getInt("puntuacion"),
-                        set.getDate("data"));
+                        dateToString(set.getDate("data")));
             }
         } catch (SQLException e) {
             System.out.println("Error mostrando anime: " + e);
