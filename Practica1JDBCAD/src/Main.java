@@ -4,7 +4,7 @@ import java.util.ArrayList;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Anime> animes = Anime.obtenerAnimes("Akira");
+        ArrayList<Anime> animes = Anime.obtenerAnimesNombre("Akira");
         if (animes!=null) {
         for (Anime anime : animes) {
             System.out.println(anime.nombre + " " + anime.descripcion + " " + anime.puntuacion + " " + anime.fecha);
