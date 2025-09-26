@@ -2,10 +2,34 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Anime {
-    String nombre;
-    String descripcion;
-    int puntuacion;
-    Date fecha;
+    private String nombre;
+    private String descripcion;
+    private int puntuacion;
+    private Date fecha;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+    public String getFecha() {
+        return fecha.toString();
+    }
+    public Date getFechaDate() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
 
     public void setNombre(String nombre) {
         String anteriorNombre = this.nombre;
@@ -14,7 +38,6 @@ public class Anime {
     }
 
     public void setPuntuacion(int puntuacion) {
-        int anteriorPuntuacion = this.puntuacion;
         this.puntuacion = puntuacion;
         actualizarPuntuacionDondeNombre(puntuacion,nombre);
     }
@@ -44,6 +67,7 @@ public class Anime {
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
         this.fecha = Date.valueOf(fecha);
+        this.insertNuevoAnime();
     }
     public static void actualizarNombreDondeNombre(String nuevoNombre, String nombre) {
         try (Connection conn = DBConnection.connect();
