@@ -1,3 +1,5 @@
+package AnimeService;
+import Connection.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class Anime {
 
     @Override
     public String toString() { // Metodo para Debug principalmente
-        return "Anime{" +
+        return "AnimeService.Anime{" +
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", puntuacion=" + puntuacion +
@@ -87,7 +89,7 @@ public class Anime {
     }
     public static Anime obtenerAnime(String nombre) {
         try (Connection conn = DBConnection.connect();
-            PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
+             PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
             stm.setString(1, nombre);
             ResultSet set = stm.executeQuery();
             if (set.next()) {
