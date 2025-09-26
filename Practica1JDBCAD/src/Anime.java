@@ -47,11 +47,29 @@ public class Anime {
         }
         return null;
     }
-    public static ArrayList<Anime> obtenerAnimes(String nombre) {
+    public static ArrayList<Anime> obtenerAnimesNombre(String nombre) {
         ArrayList<Anime> animes = new ArrayList<>();
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("select * from anime where nome = ?")) {
             stm.setString(1, nombre);
+            ResultSet set = stm.executeQuery();
+            while (set.next()) {
+                animes.add(new Anime(set.getString("nome"),
+                        set.getString("descripcion"),
+                        set.getInt("puntuacion"),
+                        set.getDate("data")));
+            }
+            return animes;
+        } catch (SQLException e) {
+            System.out.println("Error mostrando anime: " + e);
+        }
+        return null;
+    }
+    public static ArrayList<Anime> obtenerAnimesPuntuaciono(int puntuacion) {
+        ArrayList<Anime> animes = new ArrayList<>();
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("select * from anime where puntuacion = ?")) {
+            stm.setInt(1, puntuacion);
             ResultSet set = stm.executeQuery();
             while (set.next()) {
                 animes.add(new Anime(set.getString("nome"),
