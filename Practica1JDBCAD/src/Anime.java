@@ -7,48 +7,11 @@ public class Anime {
     private int puntuacion;
     private Date fecha;
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-        actualizarDescripcionDondeNombre(descripcion,nombre);
-    }
-    public int getPuntuacion() {
-        return puntuacion;
-    }
     public String getFecha() {
         return fecha.toString();
     }
     public Date getFechaDate() {
         return fecha;
-    }
-
-    public void setFechaDate(Date fecha) {
-        this.fecha = fecha;
-        actualizarFechaDondeNombre(fecha.toString(),nombre);
-    }
-    public void setFecha(String fecha) {
-        this.fecha = Date.valueOf(fecha);
-        actualizarFechaDondeNombre(fecha,nombre);
-    }
-    public void setNombre(String nombre) {
-        String anteriorNombre = this.nombre;
-        this.nombre = nombre;
-        actualizarNombreDondeNombre(nombre,anteriorNombre);
-    }
-
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
-        actualizarPuntuacionDondeNombre(puntuacion,nombre);
-    }
-
-    public String obtenerFecha() {
-        return fecha.toString();
     }
 
     @Override
@@ -211,5 +174,38 @@ public class Anime {
             System.out.println(e.getMessage());
         }
 
+    }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+        actualizarDescripcionDondeNombre(descripcion,nombre);
+    }
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+
+    public void setFechaDate(Date fecha) {
+        this.fecha = fecha;
+        actualizarFechaDondeNombre(fecha.toString(),nombre);
+    }
+    public void setFecha(String fecha) {
+        this.fecha = Date.valueOf(fecha);
+        actualizarFechaDondeNombre(fecha,nombre);
+    }
+    public void setNombre(String nombre) {
+        String anteriorNombre = this.nombre;
+        this.nombre = nombre;
+        actualizarNombreDondeNombre(nombre,anteriorNombre);
+    }
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+        actualizarPuntuacionDondeNombre(puntuacion,nombre);
     }
 }
