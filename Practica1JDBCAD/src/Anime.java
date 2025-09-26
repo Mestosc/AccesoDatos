@@ -43,7 +43,7 @@ public class Anime {
             stm.setString(2, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error actualizando resultados: " + e);
+            System.err.println("Error actualizando resultados: " + e);
         }
     }
     public static void actualizarPuntuacionDondeNombre(int puntuacion, String nombre) {
@@ -53,7 +53,7 @@ public class Anime {
             stm.setString(2, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error actualizando resultados: " + e);
+            System.err.println("Error actualizando resultados: " + e);
         }
     }
     public static void actualizarFechaDondeNombre(String fecha, String nombre) {
@@ -63,7 +63,7 @@ public class Anime {
             stm.setString(2, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error actualizando resultados: " + e);
+            System.err.println("Error actualizando resultados: " + e);
         }
     }
     public static void actualizarDescripcionDondeNombre(String nuevaDescipcion, String nombre) {
@@ -82,7 +82,7 @@ public class Anime {
             stm.setString(1, nombre);
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error eliminando anime: " + e);
+            System.err.println("Error eliminando anime: " + e);
         }
     }
     public static Anime obtenerAnime(String nombre) {
@@ -97,7 +97,7 @@ public class Anime {
                         set.getDate("data"));
             }
         } catch (SQLException e) {
-            System.out.println("Error mostrando anime: " + e);
+            System.err.println("Error mostrando anime: " + e);
         }
         return null;
     }
@@ -115,7 +115,7 @@ public class Anime {
             }
             return animes;
         } catch (SQLException e) {
-            System.out.println("Error mostrando anime: " + e);
+            System.err.println("Error mostrando anime: " + e);
         }
         return null;
     }
@@ -133,7 +133,7 @@ public class Anime {
             }
             return animes;
         } catch (SQLException e) {
-            System.out.println("Error mostrando anime: " + e);
+            System.err.println("Error mostrando anime: " + e);
         }
         return null;
     }
@@ -152,7 +152,7 @@ public class Anime {
             }
             return animes;
         } catch (SQLException e) {
-            System.out.println("Error mostrando anime: " + e);
+            System.err.println("Error mostrando anime: " + e);
         }
         return null;
     }
@@ -171,7 +171,7 @@ public class Anime {
             statement.setInt(4, puntuacion);
             statement.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
     }
