@@ -72,7 +72,6 @@ public class Anime {
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
         this.fecha = Date.valueOf(fecha);
-        this.insertNuevoAnime();
     }
     public static void actualizarNombreDondeNombre(String nuevoNombre, String nombre) {
         try (Connection conn = DBConnection.connect();
@@ -96,7 +95,7 @@ public class Anime {
     }
     public static void actualizarFechaDondeNombre(String fecha, String nombre) {
         try (Connection conn = DBConnection.connect();
-             PreparedStatement stm = conn.prepareStatement("update anime set date= ? where nome = ?")) {
+             PreparedStatement stm = conn.prepareStatement("update anime set data= ? where nome = ?")) {
             stm.setDate(1,Date.valueOf(fecha));
             stm.setString(2, nombre);
             stm.executeUpdate();
@@ -175,6 +174,7 @@ public class Anime {
         }
         return null;
     }
+
     public static ArrayList<Anime> obtenerAnimesPuntuacion(int puntuacion) {
         ArrayList<Anime> animes = new ArrayList<>();
         try (Connection conn = DBConnection.connect();
@@ -193,6 +193,9 @@ public class Anime {
         }
         return null;
     }
+    public void eliminarAnime() {
+        eliminarAnime(this.nombre);
+    }
     public void insertNuevoAnime() {
         insertNuevoAnime(nombre,descripcion,puntuacion,fecha.toString());
     }
@@ -201,8 +204,8 @@ public class Anime {
              PreparedStatement statement = conn.prepareStatement("insert into anime (nome, descripcion, data, puntuacion) values (?, ?, ?, ?)")) {
             statement.setString(1, nombre);
             statement.setString(2, descripcion);
-            statement.setInt(3, puntuacion);
-            statement.setDate(4,Date.valueOf(fecha));
+            statement.setDate(3,Date.valueOf(fecha));
+            statement.setInt(4, puntuacion);
             statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
