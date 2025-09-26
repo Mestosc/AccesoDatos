@@ -1,6 +1,4 @@
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Anime {
@@ -77,7 +75,25 @@ public class Anime {
         }
         return null;
     }
-    public static ArrayList<Anime> obtenerAnimesPuntuaciono(int puntuacion) {
+    public static ArrayList<Anime> obtenerAnimesFecha(String fecha) {
+        ArrayList<Anime> animes = new ArrayList<>();
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("select * from anime where data = ?")) {
+            stm.setDate(1, Date.valueOf(fecha));
+            ResultSet set = stm.executeQuery();
+            while (set.next()) {
+                animes.add(new Anime(set.getString("nome"),
+                        set.getString("descripcion"),
+                        set.getInt("puntuacion"),
+                        set.getDate("data")));
+            }
+            return animes;
+        } catch (SQLException e) {
+            System.out.println("Error mostrando anime: " + e);
+        }
+        return null;
+    }
+    public static ArrayList<Anime> obtenerAnimesPuntuacion(int puntuacion) {
         ArrayList<Anime> animes = new ArrayList<>();
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("select * from anime where puntuacion = ?")) {
