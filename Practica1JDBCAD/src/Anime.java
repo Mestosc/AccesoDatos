@@ -11,6 +11,16 @@ public class Anime {
         return fecha.toString();
     }
 
+    @Override
+    public String toString() { // Metodo para Debug principalmente
+        return "Anime{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", puntuacion=" + puntuacion +
+                ", fecha=" + fecha +
+                '}';
+    }
+
     private Anime(String nombre, String descripcion, int puntuacion, Date fecha) {
         this.nombre = nombre;
         this.descripcion = descripcion;
