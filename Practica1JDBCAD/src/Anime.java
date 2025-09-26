@@ -43,6 +43,26 @@ public class Anime {
             System.out.println("Error actualizando resultados: " + e);
         }
     }
+    public static void actualizarFechaDondeNombre(String fecha, String nombre) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("update anime set date= ? where nome = ?")) {
+            stm.setDate(1,Date.valueOf(fecha));
+            stm.setString(2, nombre);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error actualizando resultados: " + e);
+        }
+    }
+    public static void actualizarDescripcionDondeNombre(String nuevaDescipcion, String nombre) {
+        try (Connection conn = DBConnection.connect();
+             PreparedStatement stm = conn.prepareStatement("update anime set descripcion= ? where nome = ?")) {
+            stm.setString(1,nuevaDescipcion);
+            stm.setString(2, nombre);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error actualizando resultados: " + e);
+        }
+    }
     public static void eliminarAnime(String nombre) {
         try (Connection conn = DBConnection.connect();
              PreparedStatement stm = conn.prepareStatement("delete from anime where nome = ?")) {
