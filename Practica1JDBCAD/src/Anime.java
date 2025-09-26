@@ -16,6 +16,7 @@ public class Anime {
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+        actualizarDescripcionDondeNombre(descripcion,nombre);
     }
     public int getPuntuacion() {
         return puntuacion;
@@ -27,10 +28,14 @@ public class Anime {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFechaDate(Date fecha) {
         this.fecha = fecha;
+        actualizarFechaDondeNombre(fecha.toString(),nombre);
     }
-
+    public void setFecha(String fecha) {
+        this.fecha = Date.valueOf(fecha);
+        actualizarFechaDondeNombre(fecha,nombre);
+    }
     public void setNombre(String nombre) {
         String anteriorNombre = this.nombre;
         this.nombre = nombre;
